@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collagio: Photo Collages and Instagram Carousels for Android</title>
+  <meta name="description" content="Collagio makes photo collages and seamless Instagram carousels on your Android phone. 100+ layouts, frames, stickers and text. No account, no ads, photos stay on your phone." />
+  <meta name="theme-color" content="#0b0a0e" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Collagio: Photo Collages and Instagram Carousels" />
+  <meta property="og:description" content="Collages and seamless Instagram carousels, made on your Android phone. No account, no ads." />
+  <meta property="og:image" content="og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Collagio",
+        "alternateName": "Collagio: Collage & Carousel",
+        "applicationCategory": "PhotographyApplication",
+        "operatingSystem": "Android 8.0 or newer",
+        "description": "Photo collages and seamless Instagram carousels, made on your phone. 100+ layouts, frames, stickers, text, filters, Pop out and Remove.",
+        "publisher": { "@type": "Organization", "name": "Cyberlab Automation", "email": "cyberlab.automation@gmail.com" },
+        "offers": [
+          { "@type": "Offer", "name": "Collagio", "price": "0", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Collagio Pro, monthly", "price": "2.99", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Collagio Pro, lifetime", "price": "24.99", "priceCurrency": "USD" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Is Collagio free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. You can make and save collages and carousels for free with unlimited photos. Free saves carry a small Collagio mark. Collagio Pro removes the mark and unlocks every Pro-badged item, Pop out and Remove for $2.99 a month or $24.99 once." } },
+          { "@type": "Question", "name": "Are my photos uploaded anywhere?", "acceptedAnswer": { "@type": "Answer", "text": "No. Your photos and projects stay on your phone. Pop out and Remove run on the phone too. There is no account and no sign-in." } },
+          { "@type": "Question", "name": "What size are the saved slides?", "acceptedAnswer": { "@type": "Answer", "text": "Slides save as full-quality JPEGs, 1080 pixels wide: 1080 x 1350 for portrait, 1080 x 1080 for square and 1080 x 1920 for stories. Those are the sizes Instagram posts at." } },
+          { "@type": "Question", "name": "Is there a free trial?", "acceptedAnswer": { "@type": "Answer", "text": "No. The free version is the trial, so nothing starts charging you later. Pro is a monthly plan you can cancel in Google Play, or a one-time purchase." } },
+          { "@type": "Question", "name": "Is Collagio on iPhone?", "acceptedAnswer": { "@type": "Answer", "text": "Not at the moment. Collagio is an Android app and needs Android 8.0 or newer." } }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #0b0a0e;
+      --bg-elev: #15131a;
+      --bg-card: #1c1922;
+      --bg-card-hover: #24202c;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text: #f7f5fb;
+      --text-muted: #a6a0b5;
+
+      /* The app's palette */
+      --pink: #ff9cc9;
+      --pink-deep: #2f0b1d;
+      --lavender: #cbb4ff;
+      --lavender-deep: #1c0d3a;
+      --mint: #83e6be;
+      --peach: #ffae82;
+      --sky: #8bc6ff;
+      --pro-gold: #f5d45d;
+      --pro-dark: #251c00;
+
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --shadow-glow: 0 24px 80px rgba(203, 180, 255, 0.12), 0 10px 30px rgba(0, 0, 0, 0.55);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    img { max-width: 100%; }
+
+    a { color: inherit; }
+
+    .icon { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125em; flex-shrink: 0; }
+
+    /* Ambient background glows */
+    .ambient-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(110px); opacity: 0.22; }
+    .orb-1 { width: 520px; height: 520px; background: radial-gradient(circle, #ff6b9d, #9345ff); top: -160px; left: -120px; }
+    .orb-2 { width: 480px; height: 480px; background: radial-gradient(circle, #5cc8ff, #cbb4ff); top: 320px; right: -140px; opacity: 0.16; }
+    .orb-3 { width: 420px; height: 420px; background: radial-gradient(circle, #ff9950, #ff62a5); bottom: -120px; left: 30%; opacity: 0.12; }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(11, 10, 14, 0.78);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand-mark { width: 38px; height: 38px; }
+    .brand-wordmark { height: 26px; width: auto; }
+
+    nav { display: flex; align-items: center; gap: 28px; }
+    nav a { color: var(--text-muted); text-decoration: none; font-size: 0.94rem; font-weight: 500; transition: color 0.2s ease; }
+    nav a:hover { color: var(--text); }
+
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.18s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-pro { background: var(--pro-gold); color: var(--pro-dark); padding: 9px 16px; font-weight: 700; }
+    .btn-pro:hover { box-shadow: 0 6px 24px rgba(245, 212, 93, 0.35); transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink), var(--lavender));
+      color: #170a24;
+      font-weight: 700;
+      padding: 14px 26px;
+      font-size: 0.98rem;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255, 156, 201, 0.28); }
+
+    .btn-ghost {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+      padding: 14px 24px;
+      font-size: 0.98rem;
+    }
+    .btn-ghost:hover { background: var(--bg-card-hover); transform: translateY(-2px); }
+
+    .btn-nav { padding: 10px 18px; font-size: 0.88rem; }
+
+    .btn-soon {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px dashed var(--border-strong);
+      cursor: default;
+    }
+    .btn-soon:active { transform: none; }
+
+    /* Hero */
+    .hero { padding: 64px 0 84px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: rgba(255, 156, 201, 0.12);
+      border: 1px solid rgba(255, 156, 201, 0.28);
+      color: var(--pink);
+      font-size: 0.84rem;
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.06;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(120deg, #ff8fc7 0%, #cbb4ff 48%, #83e6be 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p.lead { color: var(--text-muted); font-size: 1.12rem; max-width: 540px; margin-bottom: 30px; }
+
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 34px; }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item strong { display: block; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 1.45rem; color: var(--text); }
+    .stat-item span { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* Phone mockup of the app's Home screen */
+    .phone-stage { display: flex; justify-content: center; position: relative; }
+
+    .phone-frame {
+      width: 345px;
+      max-width: 100%;
+      background: #0d0c11;
+      border-radius: 42px;
+      padding: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 35px 90px rgba(0, 0, 0, 0.75), 0 0 60px rgba(203, 180, 255, 0.14);
+    }
+
+    .phone-screen { background: #0e0d12; border-radius: 30px; padding: 16px 14px 18px; overflow: hidden; }
+
+    .phone-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .phone-logo { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 1.35rem; }
+
+    .phone-pro-pill {
+      background: var(--pro-gold);
+      color: var(--pro-dark);
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .phone-hero-card {
+      position: relative;
+      display: block;
+      width: 100%;
+      border: none;
+      padding: 0;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      cursor: pointer;
+      background: #f9d8e6;
+    }
+    .phone-hero-card img { display: block; width: 100%; aspect-ratio: 1014 / 687; object-fit: cover; }
+
+    .phone-card-badge {
+      position: absolute;
+      bottom: 10px;
+      left: 12px;
+      background: rgba(20, 18, 26, 0.84);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 999px;
+    }
+
+    .phone-dots { display: flex; justify-content: center; gap: 5px; margin-bottom: 12px; }
+    .phone-dots span { width: 5px; height: 5px; border-radius: 99px; background: rgba(255, 255, 255, 0.22); }
+    .phone-dots span.active { width: 16px; background: #fff; }
+
+    .phone-primary-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+
+    .tile-big {
+      border-radius: 20px;
+      padding: 14px;
+      text-align: left;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.16s ease, filter 0.16s ease;
+    }
+    .tile-big:hover { transform: translateY(-2px); filter: brightness(1.04); }
+    .tile-big.pink { background: var(--pink); color: var(--pink-deep); }
+    .tile-big.lavender { background: var(--lavender); color: var(--lavender-deep); }
+    .tile-big .tile-icon { display: flex; justify-content: flex-end; margin-bottom: 12px; font-size: 1.4rem; }
+    .tile-big h4 { font-size: 1.1rem; margin-bottom: 2px; }
+    .tile-big p { font-size: 0.74rem; opacity: 0.82; line-height: 1.25; }
+
+    .phone-secondary-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 14px; }
+
+    .tile-small {
+      background: #1c1a22;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 11px 10px;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.18s ease, transform 0.16s ease;
+    }
+    .tile-small:hover { background: #25222e; transform: translateY(-1px); }
+    .tile-small .icon { font-size: 1.15rem; }
+    .tile-small .crown-dot {
+      position: absolute;
+      top: 6px;
+      right: calc(50% - 22px);
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--pro-gold);
+      color: var(--pro-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+    }
+
+    .phone-keep-editing { display: flex; justify-content: space-between; align-items: center; font-size: 0.84rem; font-weight: 700; margin-bottom: 8px; font-family: 'Fredoka', sans-serif; }
+    .phone-keep-editing span:last-child { color: var(--pink); font-size: 0.76rem; }
+
+    .keep-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+    .keep-thumb { height: 54px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); background: #23202b; }
+    .keep-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* Section headings */
+    section { padding: 84px 0; }
+
+    .section-head { text-align: center; max-width: 680px; margin: 0 auto 52px; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--lavender);
+      margin-bottom: 10px;
+    }
+
+    .section-head h2 { font-size: clamp(2rem, 3.6vw, 2.8rem); margin-bottom: 14px; line-height: 1.12; }
+    .section-head p { color: var(--text-muted); font-size: 1.05rem; }
+
+    /* Try-it studio */
+    .studio-shell {
+      background: var(--bg-elev);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow-glow);
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .studio-controls {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .control-group .label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .control-group .val { color: var(--pink); font-weight: 600; }
+
+    .layout-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+
+    .layout-btn {
+      background: #141219;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 6px;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.18s ease;
+    }
+    .layout-btn .icon { font-size: 1.25rem; }
+    .layout-btn:hover { border-color: rgba(255, 255, 255, 0.25); color: var(--text); }
+    .layout-btn.active { background: rgba(255, 156, 201, 0.14); border-color: var(--pink); color: var(--pink); }
+
+    .bg-swatches { display: flex; gap: 9px; flex-wrap: wrap; }
+
+    .swatch {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .swatch:hover { transform: scale(1.08); }
+    .swatch.active { border-color: #fff; box-shadow: 0 0 0 3px rgba(255, 156, 201, 0.35); }
+
+    .swatch-gingham, .collage-board.bg-gingham {
+      background-color: #f9d8e6;
+      background-image:
+        linear-gradient(90deg, rgba(242, 137, 182, 0.45) 50%, transparent 50%),
+        linear-gradient(rgba(242, 137, 182, 0.45) 50%, transparent 50%);
+      background-size: 10px 10px;
+    }
+    .collage-board.bg-gingham { background-size: 18px 18px; }
+    .swatch-white { background: #ffffff; }
+    .swatch-linen { background: #e6dec8; }
+    .swatch-pastel { background: linear-gradient(135deg, #d7c5ff, #ffc1df); }
+    .swatch-dark { background: #141218; border-color: rgba(255, 255, 255, 0.2); }
+
+    input[type="range"] { width: 100%; accent-color: var(--pink); cursor: pointer; }
+
+    .theme-pills { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .pill-btn {
+      background: #141219;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+    .pill-btn.active, .pill-btn:hover { background: var(--lavender); color: var(--lavender-deep); border-color: var(--lavender); }
+
+    .studio-actions { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .btn-sm { padding: 10px 12px; font-size: 0.84rem; border-radius: 12px; }
+
+    .studio-viewport {
+      background: #0d0c10;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 490px;
+      min-width: 0;
+    }
+
+    .studio-status-bar {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .status-chip {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 999px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .collage-board {
+      width: 100%;
+      max-width: 480px;
+      aspect-ratio: 4 / 5;
+      border-radius: 18px;
+      padding: 16px;
+      transition: background 0.3s ease, padding 0.2s ease;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      margin-top: 18px;
+    }
+
+    .collage-board.bg-white { background: #ffffff; }
+    .collage-board.bg-dark { background: #141218; }
+    .collage-board.bg-pastel { background: linear-gradient(135deg, #d7c5ff, #ffc1df); }
+    .collage-board.bg-linen {
+      background-color: #e6dec8;
+      background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 0);
+      background-size: 6px 6px;
+    }
+
+    .photo-slot {
+      position: relative;
+      overflow: hidden;
+      background: #23202a;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      transition: transform 0.25s ease, border-radius 0.2s ease;
+      user-select: none;
+    }
+    .photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s ease; }
+    .photo-slot:hover img { transform: scale(1.06); }
+
+    .slot-hint {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(15, 13, 20, 0.72);
+      color: #fff;
+      font-size: 0.68rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+    .photo-slot:hover .slot-hint, .photo-slot:focus-visible .slot-hint { opacity: 1; }
+
+    .collage-board.layout-heart { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
+    .collage-board.layout-grid4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+    .collage-board.layout-trio { grid-template-columns: 1.25fr 1fr; grid-template-rows: 1fr 1fr; }
+    .collage-board.layout-trio .photo-slot:first-child { grid-row: span 2; }
+    .collage-board.layout-arch { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr; }
+    .collage-board.layout-arch .photo-slot:nth-child(2) {
+      border-top-left-radius: 999px !important;
+      border-top-right-radius: 999px !important;
+    }
+
+    .collage-board.layout-freestyle { display: block; }
+    .collage-board.layout-freestyle .photo-slot {
+      position: absolute;
+      width: 54%;
+      height: 46%;
+      border: 6px solid #fff;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    }
+    .collage-board.layout-freestyle .photo-slot:nth-child(1) { top: 6%; left: 6%; transform: rotate(-6deg); z-index: 1; }
+    .collage-board.layout-freestyle .photo-slot:nth-child(2) { top: 14%; right: 6%; transform: rotate(5deg); z-index: 2; }
+    .collage-board.layout-freestyle .photo-slot:nth-child(3) { bottom: 6%; left: 22%; transform: rotate(-2deg); z-index: 3; }
+
+    /* Seamless carousel: one photo runs across three 4:5 slides */
+    .collage-board.layout-carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 0 !important;
+      padding: 0 !important;
+      aspect-ratio: 4 / 5;
+    }
+    .carousel-page {
+      flex: 0 0 100%;
+      height: 100%;
+      scroll-snap-align: start;
+      position: relative;
+      background-repeat: no-repeat;
+      background-size: 300% 100%;
+    }
+    .carousel-page + .carousel-page { border-left: 2px dashed rgba(255, 255, 255, 0.7); }
+    .carousel-page .slide-num { top: 10px; left: 10px; }
+
+    .heart-cutout {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 54%;
+      height: 54%;
+      z-index: 5;
+      cursor: pointer;
+      filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.35));
+      transition: transform 0.25s ease;
+    }
+    .heart-cutout:hover { transform: translate(-50%, -50%) scale(1.04); }
+
+    .studio-tip { margin-top: 14px; font-size: 0.82rem; color: var(--text-muted); text-align: center; max-width: 480px; }
+
+    /* Feature cards */
+    .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+
+    .bento-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.22s ease, border-color 0.22s ease;
+    }
+    .bento-card:hover { transform: translateY(-4px); border-color: var(--border-strong); }
+
+    .bento-card.col-7 { grid-column: span 7; }
+    .bento-card.col-5 { grid-column: span 5; }
+    .bento-card.col-6 { grid-column: span 6; }
+
+    .bento-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      width: fit-content;
+      margin-bottom: 14px;
+    }
+    .pill-lavender { background: rgba(203, 180, 255, 0.16); color: var(--lavender); }
+    .pill-pink { background: rgba(255, 156, 201, 0.15); color: var(--pink); }
+    .pill-gold { background: rgba(245, 212, 93, 0.16); color: var(--pro-gold); }
+    .pill-mint { background: rgba(131, 230, 190, 0.15); color: var(--mint); }
+    .pill-sky { background: rgba(139, 198, 255, 0.15); color: var(--sky); }
+    .pill-peach { background: rgba(255, 174, 130, 0.15); color: var(--peach); }
+
+    .bento-card h3 { font-size: 1.5rem; margin-bottom: 8px; line-height: 1.2; }
+    .bento-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+    .showcase-img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1014 / 687;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .carousel-demo { display: flex; gap: 0; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x mandatory; border-radius: 14px; }
+    .carousel-demo::-webkit-scrollbar { height: 6px; }
+    .carousel-demo::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 99px; }
+
+    .carousel-slide {
+      flex: 0 0 168px;
+      height: 210px;
+      position: relative;
+      scroll-snap-align: start;
+      background-image: url('img/photo-7.webp');
+      background-repeat: no-repeat;
+      background-size: 400% auto;
+      background-position-y: center;
+    }
+    .carousel-slide + .carousel-slide { border-left: 2px dashed rgba(255, 255, 255, 0.55); }
+
+    .slide-num {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(0, 0, 0, 0.65);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .tool-list { display: grid; gap: 14px; }
+    .tool-row {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: #131118;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .tool-row .tool-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .tool-row h4 { font-size: 1.05rem; margin-bottom: 2px; }
+    .tool-row p { font-size: 0.88rem; }
+
+    .recap-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      background: #131118;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    .recap-cell {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      background: #201d28;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .recap-cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* Privacy strip */
+    .promise-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .promise {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+    }
+    .promise .icon { font-size: 1.4rem; color: var(--mint); margin-bottom: 12px; }
+    .promise h3 { font-size: 1.15rem; margin-bottom: 6px; }
+    .promise p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* Pricing */
+    .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 920px; margin: 0 auto; }
+
+    .price-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+    }
+    .price-card.pro {
+      background: linear-gradient(135deg, rgba(245, 212, 93, 0.12), rgba(203, 180, 255, 0.1) 55%, rgba(255, 156, 201, 0.1));
+      border-color: rgba(245, 212, 93, 0.32);
+    }
+    .price-card h3 { font-size: 1.6rem; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
+    .price { font-family: 'Fredoka', sans-serif; font-size: 2.2rem; font-weight: 600; margin: 10px 0 2px; }
+    .price small { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+    .price-note { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+
+    .perk-list { list-style: none; display: grid; gap: 11px; }
+    .perk-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.94rem; }
+    .perk-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(131, 230, 190, 0.18);
+      color: var(--mint);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .pro .perk-dot { background: rgba(245, 212, 93, 0.2); color: var(--pro-gold); }
+
+    .price-footnote { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 22px; }
+
+    /* Download */
+    .download-card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-xl);
+      padding: 44px 28px;
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-glow);
+    }
+    .download-card img { width: 72px; height: 72px; margin-bottom: 14px; }
+    .download-card h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 8px; }
+    .download-card p { color: var(--text-muted); margin-bottom: 22px; }
+
+    /* FAQ */
+    .faq { max-width: 760px; margin: 0 auto; display: grid; gap: 12px; }
+    .faq details {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+    }
+    .faq summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: '+'; color: var(--pink); font-size: 1.2rem; line-height: 1; }
+    .faq details[open] summary::after { content: '\2212'; }
+    .faq details p { color: var(--text-muted); margin-top: 10px; font-size: 0.95rem; }
+
+    footer { border-top: 1px solid var(--border); padding: 42px 0; color: var(--text-muted); font-size: 0.88rem; }
+    .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 18px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--text); }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .hero-grid, .studio-shell { grid-template-columns: 1fr; }
+      .bento-card.col-7, .bento-card.col-5, .bento-card.col-6 { grid-column: span 12; }
+      .promise-grid { grid-template-columns: 1fr 1fr; }
+      nav { display: none; }
+      .hero { padding-top: 38px; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 0 16px; }
+      .price-grid, .promise-grid { grid-template-columns: 1fr; }
+      .studio-shell { padding: 14px; }
+      .studio-viewport { padding: 14px; min-height: 0; }
+      .bento-card, .price-card { padding: 22px; }
+      .btn-pro { display: none; }
+      section { padding: 60px 0; }
+      .brand-wordmark { height: 22px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(90px);
+      background: #23202b;
+      color: #fff;
+      border: 1px solid var(--pink);
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 100;
+      max-width: calc(100% - 32px);
+      text-align: center;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <!-- Icon set: referenced with <svg class="icon"><use href="#i-..."/></svg> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-crown" viewBox="0 0 24 24"><path fill="currentColor" d="M3 7l4.5 4L12 4l4.5 7L21 7l-2 12H5L3 7z"/></symbol>
+    <symbol id="i-collage" viewBox="0 0 24 24"><g fill="currentColor"><rect x="3" y="3" width="8" height="11" rx="1.6"/><rect x="13" y="3" width="8" height="7" rx="1.6"/><rect x="3" y="16" width="8" height="5" rx="1.6"/><rect x="13" y="12" width="8" height="9" rx="1.6"/></g></symbol>
+    <symbol id="i-carousel" viewBox="0 0 24 24"><g fill="currentColor"><rect x="2" y="6" width="4" height="12" rx="1.2" opacity="0.7"/><rect x="7.5" y="4" width="9" height="16" rx="1.8"/><rect x="18" y="6" width="4" height="12" rx="1.2" opacity="0.7"/></g></symbol>
+    <symbol id="i-shapes" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 2.5l4.5 7.5h-9z"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><circle cx="17" cy="17" r="4"/></g></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></g><g fill="currentColor"><circle cx="8" cy="14" r="1.2"/><circle cx="12" cy="14" r="1.2"/><circle cx="16" cy="14" r="1.2"/><circle cx="8" cy="17.5" r="1.2"/><circle cx="12" cy="17.5" r="1.2"/></g></symbol>
+    <symbol id="i-wand" viewBox="0 0 24 24"><g fill="currentColor"><rect x="9.5" y="2" width="5" height="20" rx="2.5" transform="rotate(45 12 12)"/><path d="M5 2l.8 2.2L8 5l-2.2.8L5 8l-.8-2.2L2 5l2.2-.8z" opacity="0.8"/></g></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6.5A2.5 2.5 0 0 1 5.5 4h4l2 2.5h7A2.5 2.5 0 0 1 21 9v8.5a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-8.5-5.3-8.5-11.5A4.8 4.8 0 0 1 12 6.4a4.8 4.8 0 0 1 8.5 3.1C20.5 15.7 12 21 12 21z"/></symbol>
+    <symbol id="i-trio" viewBox="0 0 24 24"><g fill="currentColor"><rect x="3" y="3" width="10" height="18" rx="1.6"/><rect x="15" y="3" width="6" height="8" rx="1.6"/><rect x="15" y="13" width="6" height="8" rx="1.6"/></g></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><g fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.6"/><rect x="13" y="3" width="8" height="8" rx="1.6"/><rect x="3" y="13" width="8" height="8" rx="1.6"/><rect x="13" y="13" width="8" height="8" rx="1.6"/></g></symbol>
+    <symbol id="i-arch" viewBox="0 0 24 24"><g fill="currentColor"><rect x="2" y="6" width="5.5" height="15" rx="1.4"/><path d="M9.3 10a2.7 2.7 0 0 1 5.4 0v11H9.3z"/><rect x="16.5" y="6" width="5.5" height="15" rx="1.4"/></g></symbol>
+    <symbol id="i-freestyle" viewBox="0 0 24 24"><g fill="currentColor"><rect x="2.5" y="4" width="10" height="9" rx="1.4" transform="rotate(-8 7.5 8.5)"/><rect x="11.5" y="5" width="10" height="9" rx="1.4" transform="rotate(7 16.5 9.5)" opacity="0.75"/><rect x="6" y="12" width="10" height="9" rx="1.4" transform="rotate(-2 11 16.5)" opacity="0.9"/></g></symbol>
+    <symbol id="i-shuffle" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></g></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2.5"/><circle cx="9" cy="10.5" r="1.8"/><path d="M21 16l-5-5-8 9"/></g></symbol>
+    <symbol id="i-lock-phone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></g></symbol>
+    <symbol id="i-user-off" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0M3 3l18 18"/></g></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></g></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></g></symbol>
+    <symbol id="i-popout" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="13" height="13" rx="2"/><circle cx="14" cy="6.5" r="3"/><path d="M9.5 21c0-4 2-6.5 4.5-6.5s4.5 2.5 4.5 6.5"/></g></symbol>
+  </svg>
+
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <header>
+    <div class="container nav-inner">
+      <a href="./" class="brand" aria-label="Collagio home">
+        <img class="brand-mark" src="img/logo-mark.webp" alt="" width="38" height="38" />
+        <img class="brand-wordmark" src="img/logo-wordmark.webp" alt="Collagio" width="86" height="26" />
+      </a>
+
+      <nav aria-label="Main">
+        <a href="#studio">Try it</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#pricing" class="btn btn-pro"><svg class="icon"><use href="#i-crown"/></svg> Pro</a>
+        <a href="#download" class="btn btn-primary btn-nav">Get the app</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-badge">For Android &middot; 100+ layouts and shapes</div>
+          <h1>Turn a camera roll into <span class="gradient-text">collages and carousels</span> worth posting.</h1>
+          <p class="lead">
+            Heart cut-outs, grids, freestyle scrapbook pages and seamless Instagram carousels, all made on your
+            phone. Your photos never leave it.
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#studio" class="btn btn-primary">Try a layout here</a>
+            <a href="#download" class="btn btn-ghost">Get it for Android</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item"><strong>100+</strong><span>layouts for 1 to 9 photos</span></div>
+            <div class="stat-item"><strong>20 slides</strong><span>per carousel</span></div>
+            <div class="stat-item"><strong>No ads</strong><span>and no account</span></div>
+          </div>
+        </div>
+
+        <!-- The app's Home screen -->
+        <div class="phone-stage">
+          <div class="phone-frame" aria-label="Collagio's home screen">
+            <div class="phone-screen">
+              <div class="phone-topbar">
+                <span class="phone-logo">Collagio</span>
+                <span class="phone-pro-pill"><svg class="icon"><use href="#i-crown"/></svg> Pro</span>
+              </div>
+
+              <button class="phone-hero-card" type="button" onclick="jumpToStudio('heart')" aria-label="Try the heart layout">
+                <img src="img/showcase-layouts.webp" alt="Two collages on pink gingham: one with a heart-shaped cell, one with a beach, rose petals and bokeh" width="1014" height="687" />
+                <span class="phone-card-badge">100+ layouts, many shapes</span>
+              </button>
+
+              <div class="phone-dots" aria-hidden="true"><span class="active"></span><span></span><span></span><span></span></div>
+
+              <div class="phone-primary-tiles">
+                <button class="tile-big pink" type="button" onclick="jumpToStudio('grid4')">
+                  <div class="tile-icon"><svg class="icon"><use href="#i-collage"/></svg></div>
+                  <h4>Collage</h4>
+                  <p>Photos in a layout</p>
+                </button>
+                <button class="tile-big lavender" type="button" onclick="jumpToStudio('carousel')">
+                  <div class="tile-icon"><svg class="icon"><use href="#i-carousel"/></svg></div>
+                  <h4>Carousel</h4>
+                  <p>Swipeable slides</p>
+                </button>
+              </div>
+
+              <div class="phone-secondary-tiles">
+                <button class="tile-small" type="button" onclick="jumpToStudio('freestyle')">
+                  <svg class="icon" style="color: var(--mint)"><use href="#i-shapes"/></svg>
+                  <span>Freestyle</span>
+                </button>
+                <button class="tile-small" type="button" onclick="scrollToSection('recap-card')">
+                  <svg class="icon" style="color: var(--lavender)"><use href="#i-calendar"/></svg>
+                  <span>Recaps</span>
+                </button>
+                <button class="tile-small" type="button" onclick="scrollToSection('tools-card')">
+                  <span class="crown-dot"><svg class="icon"><use href="#i-crown"/></svg></span>
+                  <svg class="icon" style="color: var(--peach)"><use href="#i-wand"/></svg>
+                  <span>Remove</span>
+                </button>
+                <button class="tile-small" type="button" onclick="scrollToSection('recap-card')">
+                  <svg class="icon" style="color: var(--sky)"><use href="#i-folder"/></svg>
+                  <span>My projects</span>
+                </button>
+              </div>
+
+              <div class="phone-keep-editing"><span>Keep editing</span><span>See all</span></div>
+              <div class="keep-thumbs">
+                <div class="keep-thumb"><img src="img/showcase-frames.webp" alt="" loading="lazy" /></div>
+                <div class="keep-thumb"><img src="img/showcase-backgrounds.webp" alt="" loading="lazy" /></div>
+                <div class="keep-thumb"><img src="img/showcase-carousel.webp" alt="" loading="lazy" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Try-it studio -->
+    <section id="studio">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Try it here</span>
+          <h2>Build a layout in your browser</h2>
+          <p>Pick a shape, set the spacing and corners, change the background, or drop in your own photos. They stay in this browser tab.</p>
+        </div>
+
+        <div class="studio-shell">
+          <div class="studio-controls">
+            <div class="control-group">
+              <div class="label">Layout <span class="val" id="layoutLabel">Heart cut-out</span></div>
+              <div class="layout-picker">
+                <button class="layout-btn active" type="button" data-layout="heart" data-name="Heart cut-out"><svg class="icon"><use href="#i-heart"/></svg> Heart</button>
+                <button class="layout-btn" type="button" data-layout="trio" data-name="Trio split"><svg class="icon"><use href="#i-trio"/></svg> Trio</button>
+                <button class="layout-btn" type="button" data-layout="grid4" data-name="2 x 2 grid"><svg class="icon"><use href="#i-grid"/></svg> Grid</button>
+                <button class="layout-btn" type="button" data-layout="arch" data-name="Arch trio"><svg class="icon"><use href="#i-arch"/></svg> Arch</button>
+                <button class="layout-btn" type="button" data-layout="freestyle" data-name="Freestyle"><svg class="icon"><use href="#i-freestyle"/></svg> Freestyle</button>
+                <button class="layout-btn" type="button" data-layout="carousel" data-name="Seamless carousel"><svg class="icon"><use href="#i-carousel"/></svg> Carousel</button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="label" for="gapSlider">Spacing <span class="val" id="gapVal">8px</span></label>
+              <input type="range" id="gapSlider" min="0" max="24" value="8" />
+            </div>
+
+            <div class="control-group">
+              <label class="label" for="radiusSlider">Corners <span class="val" id="radiusVal">12px</span></label>
+              <input type="range" id="radiusSlider" min="0" max="36" value="12" />
+            </div>
+
+            <div class="control-group">
+              <div class="label">Background</div>
+              <div class="bg-swatches">
+                <button class="swatch swatch-gingham active" type="button" data-bg="bg-gingham" title="Pink gingham" aria-label="Pink gingham"></button>
+                <button class="swatch swatch-white" type="button" data-bg="bg-white" title="White" aria-label="White"></button>
+                <button class="swatch swatch-linen" type="button" data-bg="bg-linen" title="Linen" aria-label="Linen"></button>
+                <button class="swatch swatch-pastel" type="button" data-bg="bg-pastel" title="Pastel gradient" aria-label="Pastel gradient"></button>
+                <button class="swatch swatch-dark" type="button" data-bg="bg-dark" title="Dark" aria-label="Dark"></button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="label">Photos</div>
+              <div class="theme-pills">
+                <button class="pill-btn active" type="button" data-pack="coastal">Sky and sea</button>
+                <button class="pill-btn" type="button" data-pack="night">Golden hour</button>
+                <button class="pill-btn" type="button" data-pack="floral">Petals and fields</button>
+              </div>
+            </div>
+
+            <div class="studio-actions">
+              <button class="btn btn-ghost btn-sm" type="button" id="shuffleBtn"><svg class="icon"><use href="#i-shuffle"/></svg> Shuffle</button>
+              <label class="btn btn-primary btn-sm">
+                <svg class="icon"><use href="#i-upload"/></svg> Your photos
+                <input type="file" id="uploadInput" accept="image/*" multiple hidden />
+              </label>
+            </div>
+          </div>
+
+          <div class="studio-viewport">
+            <div class="studio-status-bar">
+              <span class="status-chip" id="modeChip">Collage &middot; Heart cut-out</span>
+              <span id="statusHint">Tap a photo to swap it</span>
+            </div>
+
+            <div class="collage-board bg-gingham layout-heart" id="collageBoard" style="gap: 8px;"></div>
+
+            <p class="studio-tip" id="studioTip">This is a small web preview. The app has 100+ layouts, drag-to-resize borders, frames, stickers and text.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">What's in the app</span>
+          <h2>Collages, carousels and the tools to dress them up</h2>
+          <p>Each tile on Collagio's home screen opens its own editor.</p>
+        </div>
+
+        <div class="bento-grid">
+          <div class="bento-card col-7">
+            <div>
+              <span class="bento-pill pill-lavender"><svg class="icon"><use href="#i-carousel"/></svg> Carousel</span>
+              <h3>Seamless Instagram carousels</h3>
+              <p>Build swipeable posts of up to 20 slides in portrait (4:5), square or story size. Seamless templates let one photo run across slides, so the post flows as people swipe. Slides save to your gallery in order.</p>
+            </div>
+            <div class="carousel-demo" aria-label="One beach photo split across four slides">
+              <div class="carousel-slide" style="background-position-x: 0%"><span class="slide-num">1 / 4</span></div>
+              <div class="carousel-slide" style="background-position-x: 33.333%"><span class="slide-num">2 / 4</span></div>
+              <div class="carousel-slide" style="background-position-x: 66.667%"><span class="slide-num">3 / 4</span></div>
+              <div class="carousel-slide" style="background-position-x: 100%"><span class="slide-num">4 / 4</span></div>
+            </div>
+          </div>
+
+          <div class="bento-card col-5">
+            <div>
+              <span class="bento-pill pill-pink"><svg class="icon"><use href="#i-collage"/></svg> Collage</span>
+              <h3>100+ layouts and shapes</h3>
+              <p>Grids, hearts, diagonals and curves for 1 to 9 photos. Drag the borders to resize cells and pick several photos at once to fill a layout.</p>
+            </div>
+            <img class="showcase-img" src="img/showcase-layouts.webp" alt="A heart-shaped collage and a three-photo collage on pink gingham" loading="lazy" width="1014" height="687" />
+          </div>
+
+          <div class="bento-card col-6">
+            <div>
+              <span class="bento-pill pill-mint"><svg class="icon"><use href="#i-shapes"/></svg> Freestyle, frames and stickers</span>
+              <h3>Scrapbook pages without a grid</h3>
+              <p>Place photos anywhere, at any size and angle. Add polaroid and rounded frames, washi tape and stickers, and text in a range of fonts and ready-made styles.</p>
+            </div>
+            <img class="showcase-img" src="img/showcase-frames.webp" alt="Polaroid-framed photos with tape and stickers on linen" loading="lazy" width="1014" height="687" />
+          </div>
+
+          <div class="bento-card col-6">
+            <div>
+              <span class="bento-pill pill-sky"><svg class="icon"><use href="#i-collage"/></svg> Backgrounds and filters</span>
+              <h3>Colors, gradients and textures</h3>
+              <p>Set the background behind your photos, then fine-tune each photo with filters, brightness, contrast, saturation and warmth.</p>
+            </div>
+            <img class="showcase-img" src="img/showcase-backgrounds.webp" alt="Collages on dotted and striped pastel backgrounds" loading="lazy" width="1014" height="687" />
+          </div>
+
+          <div class="bento-card col-7" id="tools-card">
+            <div>
+              <span class="bento-pill pill-gold"><svg class="icon"><use href="#i-crown"/></svg> Pro tools</span>
+              <h3>Pop out and Remove</h3>
+              <p>Both run on your phone. No photo is sent to a server.</p>
+            </div>
+            <div class="tool-list">
+              <div class="tool-row">
+                <span class="tool-icon pill-peach"><svg class="icon"><use href="#i-popout"/></svg></span>
+                <div>
+                  <h4>Pop out</h4>
+                  <p>Lifts the person or object in a photo out of its frame, so it breaks over the border of the collage.</p>
+                </div>
+              </div>
+              <div class="tool-row">
+                <span class="tool-icon pill-peach"><svg class="icon"><use href="#i-wand"/></svg></span>
+                <div>
+                  <h4>Remove</h4>
+                  <p>Brush over something you don't want in a photo, like a stranger or a sign, and Collagio fills the space in.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bento-card col-5" id="recap-card">
+            <div>
+              <span class="bento-pill pill-lavender"><svg class="icon"><use href="#i-calendar"/></svg> Recaps and projects</span>
+              <h3>A month in one post, and nothing lost</h3>
+              <p>The Month Recap template turns a month of photos into one post. Every change saves as you go, undo is always on screen, and finished projects reopen under Keep editing.</p>
+            </div>
+            <div class="recap-grid" id="recapGrid" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy promises -->
+    <section id="privacy" style="padding-top: 0;">
+      <div class="container">
+        <div class="promise-grid">
+          <div class="promise">
+            <svg class="icon"><use href="#i-lock-phone"/></svg>
+            <h3>Photos stay on your phone</h3>
+            <p>Projects are saved on the phone and nothing is uploaded.</p>
+          </div>
+          <div class="promise">
+            <svg class="icon"><use href="#i-user-off"/></svg>
+            <h3>No account, no ads</h3>
+            <p>Open the app and start. There's no sign-in and no ads.</p>
+          </div>
+          <div class="promise">
+            <svg class="icon"><use href="#i-save"/></svg>
+            <h3>Full-quality saves</h3>
+            <p>1080 px wide JPEGs at Instagram's sizes: 4:5, square and story.</p>
+          </div>
+          <div class="promise">
+            <svg class="icon"><use href="#i-undo"/></svg>
+            <h3>Work is never held back</h3>
+            <p>Saving is never blocked, and no paywall appears in the middle of a project.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Pricing</span>
+          <h2>Free to use. Pro if you want everything.</h2>
+          <p>No free trial, so nothing starts charging you later.</p>
+        </div>
+
+        <div class="price-grid">
+          <div class="price-card">
+            <h3>Free</h3>
+            <div class="price">$0</div>
+            <p class="price-note">For as long as you like</p>
+            <ul class="perk-list">
+              <li><span class="perk-dot"><svg class="icon"><use href="#i-check"/></svg></span> Unlimited photos and projects</li>
+              <li><span class="perk-dot"><svg class="icon"><use href="#i-check"/></svg></span> A large set of free layouts, templates, stickers and fonts</li>
+              <li><span class="perk-dot"><svg class="icon"><use href="#i-check"/></svg></span> Full-quality saves, with a small Collagio mark</li>
+              <li><span class="perk-dot"><svg class="icon"><use href="#i-check"/></svg></span> No ads</li>
+              <li><span class="perk-dot"><svg class="icon"><use href="#i-check"/></svg></span> Anything free today stays free</li>
+            </ul>
+          </div>
+
+          <div class="price-card pro">
+            <h3><span class="phone-pro-pill" style="font-size: 0.85rem; padding: 5px 12px;"><svg class="icon"><use href="#i-crown"/></svg> Pro</span> Collagio Pro</h3>
+            <div class="price">$2.99 <small>a month</small></div>
+            <p class="price-note">or $24.99 once, yours for good</p>
+            <ul class="perk-list">
+              <li><span class="perk-dot"><svg class="icon"><use href="#i-check"/></svg></span> No Collagio mark on your saves</li>
+              <li><span class="perk-dot"><svg class="icon"><use href="#i-check"/></svg></span> Every Pro layout, template, sticker, filter, font, frame and background</li>
+              <li><span class="perk-dot"><svg class="icon"><use href="#i-check"/></svg></span> Pop out</li>
+              <li><span class="perk-dot"><svg class="icon"><use href="#i-check"/></svg></span> Remove</li>
+              <li><span class="perk-dot"><svg class="icon"><use href="#i-check"/></svg></span> Cancel the monthly plan any time in Google Play</li>
+            </ul>
+          </div>
+        </div>
+        <p class="price-footnote">Prices in US dollars. Google Play shows the price in your currency before you buy.</p>
+      </div>
+    </section>
+
+    <!-- Download -->
+    <section id="download" style="padding-top: 0;">
+      <div class="container">
+        <div class="download-card">
+          <img src="img/logo-mark.webp" alt="" width="72" height="72" />
+          <h2>Get Collagio for Android</h2>
+          <p>Coming soon to Google Play. Needs Android 8.0 or newer.</p>
+          <span class="btn btn-soon">Coming soon to Google Play</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" style="padding-top: 0;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Questions</span>
+          <h2>Good to know</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>Is Collagio free?</summary>
+            <p>Yes. You can make and save collages and carousels for free with unlimited photos. Free saves carry a small Collagio mark. Collagio Pro removes the mark and unlocks every Pro-badged item, Pop out and Remove for $2.99 a month or $24.99 once.</p>
+          </details>
+          <details>
+            <summary>Are my photos uploaded anywhere?</summary>
+            <p>No. Your photos and projects stay on your phone. Pop out and Remove run on the phone too. There is no account and no sign-in. The <a href="privacy.html">privacy policy</a> lists the little that does leave the phone, such as crash reports.</p>
+          </details>
+          <details>
+            <summary>What size are the saved slides?</summary>
+            <p>Slides save as full-quality JPEGs, 1080 pixels wide: 1080 x 1350 for portrait, 1080 x 1080 for square and 1080 x 1920 for stories. Those are the sizes Instagram posts at.</p>
+          </details>
+          <details>
+            <summary>Is there a free trial?</summary>
+            <p>No. The free version is the trial, so nothing starts charging you later. Pro is a monthly plan you can cancel in Google Play, or a one-time purchase.</p>
+          </details>
+          <details>
+            <summary>Is Collagio on iPhone?</summary>
+            <p>Not at the moment. Collagio is an Android app and needs Android 8.0 or newer.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a href="./" class="brand" aria-label="Collagio home">
+        <img class="brand-wordmark" src="img/logo-wordmark.webp" alt="Collagio" width="73" height="22" style="height: 22px;" />
+      </a>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy policy</a>
+        <a href="terms.html">Terms of service</a>
+        <a href="mailto:cyberlab.automation@gmail.com">Contact</a>
+      </div>
+      <div>&copy; <span id="year">2026</span> Cyberlab Automation</div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const PHOTOS = {
+      beach: 'img/photo-1.webp',
+      petals: 'img/photo-2.webp',
+      sky: 'img/photo-3.webp',
+      meadow: 'img/photo-4.webp',
+      sunset: 'img/photo-5.webp',
+      bokeh: 'img/photo-6.webp',
+      shore: 'img/photo-7.webp',
+      daisies: 'img/photo-8.webp'
+    };
+    const ALL_PHOTOS = Object.values(PHOTOS);
+
+    // Recap calendar
+    const recapGrid = document.getElementById('recapGrid');
+    const recapPhotos = [PHOTOS.sky, PHOTOS.beach, PHOTOS.sunset, PHOTOS.petals, PHOTOS.meadow, PHOTOS.bokeh, PHOTOS.daisies];
+    for (let d = 1; d <= 14; d++) {
+      const cell = document.createElement('div');
+      cell.className = 'recap-cell';
+      if ([2, 4, 6, 7, 10, 12, 13].includes(d)) {
+        const img = document.createElement('img');
+        img.src = recapPhotos[d % recapPhotos.length];
+        img.alt = '';
+        img.loading = 'lazy';
+        cell.appendChild(img);
+      } else {
+        cell.textContent = d;
+      }
+      recapGrid.appendChild(cell);
+    }
+
+    // Try-it studio
+    const PACKS = {
+      coastal: [PHOTOS.sky, PHOTOS.meadow, PHOTOS.sunset, PHOTOS.beach],
+      night: [PHOTOS.bokeh, PHOTOS.sunset, PHOTOS.sky, PHOTOS.petals],
+      floral: [PHOTOS.petals, PHOTOS.daisies, PHOTOS.meadow, PHOTOS.sunset]
+    };
+
+    const state = {
+      layout: 'heart',
+      layoutName: 'Heart cut-out',
+      gap: 8,
+      radius: 12,
+      bg: 'bg-gingham',
+      photos: [...PACKS.coastal]
+    };
+
+    const board = document.getElementById('collageBoard');
+    const layoutLabel = document.getElementById('layoutLabel');
+    const modeChip = document.getElementById('modeChip');
+    const statusHint = document.getElementById('statusHint');
+    const HEART_PATH = 'M50 88 C47 85 6 57 6 28 C6 13 18 4 31 4 C40 4 47 9 50 16 C53 9 60 4 69 4 C82 4 94 13 94 28 C94 57 53 85 50 88 Z';
+
+    function nextPhoto(index) {
+      const current = state.photos[index];
+      const pos = ALL_PHOTOS.indexOf(current);
+      state.photos[index] = ALL_PHOTOS[(pos + 1) % ALL_PHOTOS.length];
+      renderBoard();
+    }
+
+    function renderCarousel() {
+      // One photo across three slides, as a seamless template does
+      const photo = state.photos[0];
+      for (let i = 0; i < 3; i++) {
+        const page = document.createElement('button');
+        page.type = 'button';
+        page.className = 'carousel-page photo-slot';
+        page.style.backgroundImage = `url("${photo}")`;
+        page.style.backgroundPosition = `${i * 50}% center`;
+        page.setAttribute('aria-label', `Slide ${i + 1} of 3. Tap to change the photo`);
+        const num = document.createElement('span');
+        num.className = 'slide-num';
+        num.textContent = `${i + 1} / 3`;
+        page.appendChild(num);
+        page.addEventListener('click', () => nextPhoto(0));
+        board.appendChild(page);
+      }
+    }
+
+    function renderBoard() {
+      board.className = `collage-board ${state.bg} layout-${state.layout}`;
+      board.style.gap = `${state.gap}px`;
+      board.style.padding = state.layout === 'carousel' ? '0px' : '16px';
+      board.replaceChildren();
+
+      if (state.layout === 'carousel') {
+        renderCarousel();
+      } else {
+        const slotCount = state.layout === 'heart' ? 2 : state.layout === 'grid4' ? 4 : 3;
+        for (let i = 0; i < slotCount; i++) {
+          const slot = document.createElement('button');
+          slot.type = 'button';
+          slot.className = 'photo-slot';
+          slot.style.borderRadius = `${state.radius}px`;
+          slot.setAttribute('aria-label', `Photo ${i + 1}. Tap to swap`);
+
+          const img = document.createElement('img');
+          img.src = state.photos[i % state.photos.length];
+          img.alt = '';
+          slot.appendChild(img);
+
+          const hint = document.createElement('span');
+          hint.className = 'slot-hint';
+          hint.textContent = 'Tap to swap';
+          slot.appendChild(hint);
+
+          slot.addEventListener('click', () => nextPhoto(i % state.photos.length));
+          board.appendChild(slot);
+        }
+      }
+
+      if (state.layout === 'heart') {
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const heart = document.createElementNS(svgNS, 'svg');
+        heart.setAttribute('viewBox', '0 0 100 92');
+        heart.setAttribute('class', 'heart-cutout');
+        heart.setAttribute('role', 'button');
+        heart.setAttribute('aria-label', 'Heart photo. Tap to swap');
+
+        const defs = document.createElementNS(svgNS, 'defs');
+        const clip = document.createElementNS(svgNS, 'clipPath');
+        clip.setAttribute('id', 'studioHeartClip');
+        const clipPath = document.createElementNS(svgNS, 'path');
+        clipPath.setAttribute('d', HEART_PATH);
+        clip.appendChild(clipPath);
+        defs.appendChild(clip);
+
+        const image = document.createElementNS(svgNS, 'image');
+        image.setAttribute('href', state.photos[2]);
+        image.setAttribute('width', '100');
+        image.setAttribute('height', '92');
+        image.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+        image.setAttribute('clip-path', 'url(#studioHeartClip)');
+
+        const outline = document.createElementNS(svgNS, 'path');
+        outline.setAttribute('d', HEART_PATH);
+        outline.setAttribute('fill', 'none');
+        outline.setAttribute('stroke', '#ffffff');
+        outline.setAttribute('stroke-width', '3.2');
+
+        heart.append(defs, image, outline);
+        heart.addEventListener('click', (e) => {
+          e.stopPropagation();
+          nextPhoto(2);
+        });
+        board.appendChild(heart);
+      }
+
+      layoutLabel.textContent = state.layoutName;
+      modeChip.textContent = state.layout === 'carousel'
+        ? 'Carousel · 3 slides, one photo'
+        : `Collage · ${state.layoutName}`;
+      statusHint.textContent = state.layout === 'carousel' ? 'Swipe sideways' : 'Tap a photo to swap it';
+    }
+
+    document.querySelectorAll('.layout-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.layout-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.layout = btn.dataset.layout;
+        state.layoutName = btn.dataset.name;
+        renderBoard();
+      });
+    });
+
+    document.getElementById('gapSlider').addEventListener('input', (e) => {
+      state.gap = Number(e.target.value);
+      document.getElementById('gapVal').textContent = `${state.gap}px`;
+      board.style.gap = state.layout === 'carousel' ? '0px' : `${state.gap}px`;
+    });
+
+    document.getElementById('radiusSlider').addEventListener('input', (e) => {
+      state.radius = Number(e.target.value);
+      document.getElementById('radiusVal').textContent = `${state.radius}px`;
+      board.querySelectorAll('.photo-slot:not(.carousel-page)').forEach(s => s.style.borderRadius = `${state.radius}px`);
+    });
+
+    document.querySelectorAll('.swatch').forEach(sw => {
+      sw.addEventListener('click', () => {
+        document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+        sw.classList.add('active');
+        state.bg = sw.dataset.bg;
+        renderBoard();
+      });
+    });
+
+    document.querySelectorAll('.pill-btn').forEach(p => {
+      p.addEventListener('click', () => {
+        document.querySelectorAll('.pill-btn').forEach(x => x.classList.remove('active'));
+        p.classList.add('active');
+        state.photos = [...PACKS[p.dataset.pack]];
+        renderBoard();
+      });
+    });
+
+    document.getElementById('shuffleBtn').addEventListener('click', () => {
+      const shuffled = [...state.photos];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      state.photos = shuffled;
+      renderBoard();
+    });
+
+    // The photos are read locally with object URLs; nothing is uploaded
+    let uploadedUrls = [];
+    document.getElementById('uploadInput').addEventListener('change', (e) => {
+      const files = Array.from(e.target.files).filter(f => f.type.startsWith('image/')).slice(0, 4);
+      if (!files.length) return;
+      uploadedUrls.forEach(u => URL.revokeObjectURL(u));
+      uploadedUrls = files.map(f => URL.createObjectURL(f));
+      const urls = [...uploadedUrls];
+      while (urls.length < 4) urls.push(state.photos[urls.length]);
+      state.photos = urls;
+      renderBoard();
+      showToast(`Added ${files.length} photo${files.length > 1 ? 's' : ''}. They stay in this tab.`);
+      e.target.value = '';
+    });
+
+    renderBoard();
+
+    function jumpToStudio(layoutKey) {
+      const targetBtn = document.querySelector(`.layout-btn[data-layout="${layoutKey}"]`);
+      if (targetBtn) targetBtn.click();
+      document.getElementById('studio').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
+    }
+  </script>
+</body>
+</html>
